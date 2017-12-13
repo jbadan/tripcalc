@@ -13,7 +13,19 @@ class Input extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      memberList: ['Louis', 'Carter', 'David'],
+      memberList: [
+        {
+          name: 'Louis',
+          payments: [5.75, 35.00, 12.79]
+        },
+        {
+          name: 'Carter',
+          payments: [12.00, 15.00, 23.23]
+        },
+        {
+          name: 'David',
+          payments: [10.00, 20.00, 38.41, 45.00]
+        }],
       newName: '',
       dialogOpen: false
     }
@@ -33,7 +45,7 @@ class Input extends Component {
 
   addMember = () => {
     let memberListAdd = this.state.memberList;
-    memberListAdd.push(this.state.newName);
+    memberListAdd.push({name: this.state.newName});
     this.setState({
       dialogOpen: false,
       memberList: memberListAdd
@@ -78,7 +90,7 @@ class Input extends Component {
               />
               </Dialog>
 
-              <PersonList />
+              <PersonList memberList={this.state.memberList}/>
               <div>input</div>
             </Paper>
           </Col>
