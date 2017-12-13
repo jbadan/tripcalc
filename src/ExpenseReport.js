@@ -1,16 +1,28 @@
 import React, { Component } from 'react';
 
 //material-ui
-import RaisedButton from 'material-ui/RaisedButton'
+import RaisedButton from 'material-ui/RaisedButton';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import {List, ListItem} from 'material-ui/List';
 
 
 class ExpenseReport extends Component {
   constructor (props) {
     super(props)
     this.state = {
-
+      finalOutput: [],
+      open: false,
     }
   }
+  handleOpen = () => {
+    this.setState({open: true});
+  };
+
+  handleClose = () => {
+    this.setState({open: false});
+  };
+
   add = (a, b) => {
     return a + b;
   };
@@ -18,6 +30,7 @@ class ExpenseReport extends Component {
   calculate = () => {
     let grandTotal=0;
     let nameAndTotal = [];
+    let output = [];
     //calculating total expenditure (grand total and PP total)
     this.props.memberList.map((person, index) => {
         nameAndTotal.push({name: person.name, amount:person.payments.reduce(this.add, 0)});
@@ -33,41 +46,56 @@ class ExpenseReport extends Component {
     for(let i=0; i<nameAndTotal.length; i++){
       nameAndDifference.push({name:nameAndTotal[i].name, difference: (expensePerPerson - nameAndTotal[i].amount)});
     }
-    console.log(nameAndDifference);
     //sort least to greatest- (creditors --> debtors)
     nameAndDifference.sort(function(a,b) {return (a.difference > b.difference) ? 1 : ((b.difference > a.difference) ? -1 : 0);} );
-    console.log(nameAndDifference);
     let copyArray = nameAndDifference;
+    //loop through paying each other back
     for(let j=0; j<copyArray.length; j++){
       for(let k=copyArray.length-1; k>0; k--){
         if(copyArray[j].difference === 0){
           copyArray.splice(j, 1);
         }else if(copyArray[j].difference < 0 && copyArray[k].difference > 0){
               copyArray[j].difference += copyArray[k].difference;
+              output.push(copyArray[k].name + " pays " + copyArray[j].name + " $"+ +(copyArray[k].difference).toFixed(2));
               copyArray[k].difference = 0;
           }
         }
       }
-      console.log(copyArray);
-
-    // for(let j=0; j<differenceArray.length; j++){
-    //     for(let k=differenceArray.length-1; k>=0; k--){
-    //       if(differenceArray[j] != 0 && differenceArray[k] > 0){
-    //       differenceArray[j] += differenceArray[k];
-    //       differenceArray[k] = 0;
-    //     }
-    //   }
-    // }
-    // console.log(differenceArray);
-
+      this.setState({
+        finalOutput: output,
+        open: true
+      })
     }
 
   render() {
-
+    const actions = [
+      <FlatButton
+        label="Close"
+        primary={true}
+        onClick={this.handleClose}
+      />
+    ];
     return (
       <div>
         <RaisedButton label="Calculate" fullWidth={true} onClick={this.calculate} />
-
+        <Dialog
+          title="Who should pay?"
+          actions={actions}
+          modal={false}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+        >
+        <List>
+          {this.state.finalOutput.map((sentence, index) => {
+            return(
+              <ListItem
+                key={index}
+                primaryText={sentence}
+              />
+            )
+          })}
+        </List>
+        </Dialog>
       </div>
     );
   }
