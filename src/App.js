@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link, Redirect
   } from 'react-router-dom';
 import './App.css';
-import Input from './Input';
+import Main from './Main';
 
 
 class App extends Component {
@@ -10,7 +10,7 @@ class App extends Component {
     return (
       <Router>
       <Switch>
-        <Route exact path="/" component={Input} />
+        <Route exact path="/" component={Main} />
       </Switch>
     </Router>
     );

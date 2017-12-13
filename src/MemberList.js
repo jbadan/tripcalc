@@ -6,14 +6,16 @@ import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 
-class PersonList extends Component {
+class MemberList extends Component {
   constructor (props) {
     super(props)
     this.state = {
       memberList: this.props.memberList,
     }
   }
-
+  add = (a, b) => {
+    return a + b;
+  }
   render() {
     return (
       <List>
@@ -30,11 +32,14 @@ class PersonList extends Component {
                     return(
                       <ListItem
                         key={index}
-                        primaryText={payment}
+                        primaryText={"$"+payment}
                       />
                     )
                 })}
             />
+            <div className="total">
+            Total: ${+((person.payments.reduce(this.add, 0)).toFixed(2))}
+            </div>
           </div>
         )
       })}
@@ -43,4 +48,4 @@ class PersonList extends Component {
   }
 }
 
-export default PersonList;
+export default MemberList;

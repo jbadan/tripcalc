@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PersonList from './PersonList';
+import MemberList from './MemberList';
 import AddMember from './AddMember';
 import AddExpense from './AddExpense';
 //flexbox
@@ -13,7 +13,7 @@ import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
-class Input extends Component {
+class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -43,13 +43,15 @@ class Input extends Component {
   render() {
     return (
       <Grid fluid>
+        <Row center="xs">
+          <h1> Roadtrip Calculator </h1>
+        </Row>
         <Row>
           <Col xs>
             <Paper zDepth={2}>
               <AddMember memberList={this.state.memberList} liftMemberList={this.liftMemberList}/>
               <AddExpense memberList={this.state.memberList} liftMemberList={this.liftMemberList}/>
-              <PersonList memberList={this.state.memberList}/>
-              <div>input</div>
+              <MemberList memberList={this.state.memberList}/>
             </Paper>
           </Col>
         </Row>
@@ -58,4 +60,4 @@ class Input extends Component {
   }
 }
 
-export default Input;
+export default Main;

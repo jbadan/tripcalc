@@ -38,7 +38,8 @@ class AddExpense extends Component {
   addPayment = () => {
     let updateMemberList = this.props.memberList;
     let index = this.state.value;
-    updateMemberList[index].payments.push(this.state.newPayment);
+
+    updateMemberList[index].payments.push(Number(this.state.newPayment));
     this.props.liftMemberList(updateMemberList);
     this.setState({
       dialogOpen: false
