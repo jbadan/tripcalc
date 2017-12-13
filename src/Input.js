@@ -8,6 +8,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 
 class Input extends Component {
   constructor(props) {
@@ -27,20 +29,46 @@ class Input extends Component {
           payments: [10.00, 20.00, 38.41, 45.00]
         }],
       newName: '',
-      dialogOpen: false
+      newPayment: 0,
+      dialogOpen: false,
+      dialogOpenPayment: false,
+      selectedMember: 0
     }
   }
 
   openDialog = () => {
     this.setState({dialogOpen: true})
   };
+  openDialogPayment = () => {
+    this.setState({dialogOpenPayment: true})
+  };
 
   handleClose = () => {
     this.setState({dialogOpen: false});
   };
+  handleClosePayment = () => {
+    this.setState({dialogOpenPayment: false});
+  };
 
   nameChange = (e) => {
     this.setState({newName: e.target.value})
+  };
+  selectedMember = (e) => {
+    this.setState({selectedMember: e.target.value})
+  };
+  paymentChange = (e) => {
+   this.setState({
+     newPayment: e.target.value
+   })
+  };
+
+  addPayment = () => {
+    let editMemberList = this.state.memberList;
+    let index = this.state.selectedMember;
+    editMemberList[index].payments.push(this.state.newPayment);
+    this.setState({
+      memberList: editMemberList
+    })
   };
 
   addMember = () => {
@@ -66,6 +94,19 @@ class Input extends Component {
         onClick={this.addMember}
       />,
     ];
+    const actionsPayment = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onClick={this.handleClosePayment}
+      />,
+      <FlatButton
+        label="Submit"
+        primary={true}
+        keyboardFocused={true}
+        onClick={this.addPayment}
+      />,
+    ];
     return (
       <Grid fluid>
         <Row>
@@ -76,6 +117,12 @@ class Input extends Component {
                 primary={true}
                 onClick={this.openDialog}
                 />
+                <RaisedButton
+                  label="Add New Expense"
+                  secondary={true}
+                  onClick={this.openDialogPayment}
+                />
+
               <Dialog
                 title="Add a New Member"
                 actions={actions}
@@ -88,6 +135,31 @@ class Input extends Component {
                 onChange={(e) => this.nameChange(e)}
                 value= {this.state.newName}
               />
+              </Dialog>
+
+              <Dialog
+                  title="Add Expense"
+                  actions={actionsPayment}
+                  modal={false}
+                  open={this.state.dialogOpenPayment}
+                  onRequestClose={this.handleClosePayment}
+              >
+              <SelectField
+                hintText="Select a member"
+                value={this.state.value}
+                onChange={this.selectedMember}
+              >
+                {this.state.memberList.map((person, index) => {
+                  return(
+                    <MenuItem value={index} primaryText={person.name} />
+                  )})}
+              </SelectField>
+                <TextField
+                   floatingLabelText="Amount ($)"
+                   type="number"
+                   onChange={(e) => this.paymentChange(e)}
+                   value={this.state.newPayment}
+                 />
               </Dialog>
 
               <PersonList memberList={this.state.memberList}/>
