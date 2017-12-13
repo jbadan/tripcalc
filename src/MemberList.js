@@ -38,7 +38,7 @@ class MemberList extends Component {
                 })}
             />
             <div className="total">
-            Total: ${+((person.payments.reduce(this.add, 0)).toFixed(2))}
+            Total Expenditure: ${+((person.payments.reduce(this.add, 0)).toFixed(2))}
             </div>
           </div>
         )

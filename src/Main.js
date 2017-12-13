@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import MemberList from './MemberList';
 import AddMember from './AddMember';
 import AddExpense from './AddExpense';
+import ExpenseReport from './ExpenseReport';
 //flexbox
 import { Grid, Row, Col } from 'react-flexbox-grid';
 //material-ui
@@ -39,15 +40,9 @@ class Main extends Component {
       memberList: updateMemberList
     })
   };
-  add = (a, b) => {
-    return a + b;
-  };
+
 
   render() {
-    let grandTotal = 0;
-    this.state.memberList.map((person, index) => {
-        grandTotal += +(person.payments.reduce(this.add, 0).toFixed(2))
-    })
     return (
       <Grid fluid>
         <Row center="xs">
@@ -64,7 +59,7 @@ class Main extends Component {
         </Row>
         <Row>
           <Col xs>
-            <h4>Grand Total: ${grandTotal}</h4>
+            <ExpenseReport memberList={this.state.memberList}/>
           </Col>
         </Row>
       </Grid>
