@@ -3,17 +3,10 @@ import MemberList from './MemberList';
 import AddMember from './AddMember';
 import AddExpense from './AddExpense';
 import ExpenseReport from './ExpenseReport';
-import { Link } from 'react-router-dom'
 //flexbox
 import { Grid, Row, Col } from 'react-flexbox-grid';
 //material-ui
 import Paper from 'material-ui/Paper';
-import RaisedButton from 'material-ui/RaisedButton';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import TextField from 'material-ui/TextField';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
 
 class Main extends Component {
   constructor(props) {
@@ -48,7 +41,7 @@ class Main extends Component {
     return (
       <Grid fluid>
         <Row center="xs">
-          <h1> Roadtrip Calculator <a className="link" href='https://github.com/jbadan/tripcalc'><i className="fa fa-github" aria-hidden="true"></i></a></h1>
+          <h1> Roadtrip Calculator <a className="link" target="_blank" rel="noopener noreferrer" href='https://github.com/jbadan/tripcalc'><i className="fa fa-github" aria-hidden="true"></i></a></h1>
         </Row>
         <Row>
           <Col xs>

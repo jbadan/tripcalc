@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 
 //material-ui
 import {List, ListItem} from 'material-ui/List';
-import FlatButton from 'material-ui/FlatButton';
-import Dialog from 'material-ui/Dialog';
-import TextField from 'material-ui/TextField';
 
 class MemberList extends Component {
   constructor (props) {
