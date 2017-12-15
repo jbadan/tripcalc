@@ -12,6 +12,7 @@ class AddMember extends Component {
     this.state = {
       dialogOpen: false,
       newName: '',
+      errorText: ''
     }
   }
   openDialog = () => {
@@ -27,13 +28,20 @@ class AddMember extends Component {
     this.setState({newName: e.target.value})
   };
   addMember = () => {
-    let updateMemberList = this.props.memberList;
-    updateMemberList.push({name: this.state.newName, payments:[]});
-    this.props.liftMemberList(updateMemberList);
-    this.setState({
-      dialogOpen: false,
-      newName: ''
-    })
+    let isName = /^\s*$/.test(this.state.newName);
+    if(isName === false){
+      let updateMemberList = this.props.memberList;
+      updateMemberList.push({name: this.state.newName, payments:[]});
+      this.props.liftMemberList(updateMemberList);
+      this.setState({
+        dialogOpen: false,
+        newName: ''
+      })
+    }else{
+      this.setState({
+        errorText: "Please enter a valid name"
+      })
+    }
   };
 
   render() {
@@ -68,6 +76,7 @@ class AddMember extends Component {
               floatingLabelText="Name"
               onChange={(e) => this.nameChange(e)}
               value= {this.state.newName}
+              errorText= {this.state.errorText}
             />
           </Dialog>
       </div>
