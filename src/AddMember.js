@@ -18,17 +18,21 @@ class AddMember extends Component {
     this.setState({dialogOpen: true})
   };
   handleClose = () => {
-    this.setState({dialogOpen: false});
+    this.setState({
+      dialogOpen: false,
+      newName: ''
+    });
   };
   nameChange = (e) => {
     this.setState({newName: e.target.value})
   };
   addMember = () => {
     let updateMemberList = this.props.memberList;
-    updateMemberList.push({name: this.state.newName});
+    updateMemberList.push({name: this.state.newName, payments:[]});
     this.props.liftMemberList(updateMemberList);
     this.setState({
       dialogOpen: false,
+      newName: ''
     })
   };
 

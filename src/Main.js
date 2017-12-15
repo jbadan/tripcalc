@@ -30,7 +30,8 @@ class Main extends Component {
         {
           name: 'David',
           payments: [10.00, 20.00, 38.41, 45.00]
-        }]
+        }
+      ]
     }
   }
 
