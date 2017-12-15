@@ -23,9 +23,7 @@ class ExpenseReport extends Component {
     this.setState({open: false});
   };
 
-  add = (a, b) => {
-    return a + b;
-  };
+  add = (a, b) => {return a + b;};
 
   calculate = () => {
     let grandTotal=0;
@@ -49,18 +47,20 @@ class ExpenseReport extends Component {
     //sort least to greatest- (creditors --> debtors)
     nameAndDifference.sort(function(a,b) {return (a.difference > b.difference) ? 1 : ((b.difference > a.difference) ? -1 : 0);} );
     let copyArray = nameAndDifference;
-    //loop through paying each other back
+    //loop through each person - copyArray[k].difference is amount to pay back
     for(let j=0; j<copyArray.length; j++){
       for(let k=copyArray.length-1; k>0; k--){
-        if(copyArray[j].difference === 0){
-          copyArray.splice(j, 1);
-        }else if(copyArray[j].difference < 0 && copyArray[k].difference > 0){
-              copyArray[j].difference += copyArray[k].difference;
-              output.push(copyArray[k].name + " pays " + copyArray[j].name + " $"+ +(copyArray[k].difference).toFixed(2)+".");
-              copyArray[k].difference = 0;
+        if(typeof copyArray[j] !== "undefined"){
+          if(copyArray[j].difference === 0){
+            copyArray.splice(j, 1);
+          }else if(copyArray[j].difference < 0 && copyArray[k].difference > 0){
+                copyArray[j].difference += copyArray[k].difference;
+                output.push(copyArray[k].name + " pays " + copyArray[j].name + " $"+ +(copyArray[k].difference).toFixed(2)+".");
+                copyArray[k].difference = 0;
           }
         }
       }
+    }
       this.setState({
         finalOutput: output,
         open: true
@@ -85,16 +85,16 @@ class ExpenseReport extends Component {
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
-        <List>
-          {this.state.finalOutput.map((sentence, index) => {
-            return(
-              <ListItem
-                key={index}
-                primaryText={sentence}
-              />
-            )
-          })}
-        </List>
+          <List>
+            {this.state.finalOutput.map((sentence, index) => {
+              return(
+                <ListItem
+                  key={index}
+                  primaryText={sentence}
+                />
+              )
+            })}
+          </List>
         </Dialog>
       </div>
     );
