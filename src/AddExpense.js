@@ -15,7 +15,8 @@ class AddExpense extends Component {
       dialogOpen: false,
       newPayment: 0,
       selectedMember: 0,
-      value: 0
+      value: 0,
+      errorText: ''
     }
   }
   openDialog= () => {
@@ -23,7 +24,11 @@ class AddExpense extends Component {
   };
 
   handleClose = () => {
-    this.setState({dialogOpen: false});
+    this.setState({
+      dialogOpen: false,
+      newPayment: 0,
+      value: 0
+    });
   };
 
 
@@ -38,12 +43,21 @@ class AddExpense extends Component {
   addPayment = () => {
     let updateMemberList = this.props.memberList;
     let index = this.state.value;
-
-    updateMemberList[index].payments.push(Number(this.state.newPayment));
-    this.props.liftMemberList(updateMemberList);
-    this.setState({
-      dialogOpen: false
-    })
+    //regex- commas, periods optional- must be in currency format
+    let isCurrency = /(?=.)^\$?(([1-9][0-9]{0,2}(,[0-9]{3})*)|[0-9]+)?(\.[0-9]{1,2})?$/.test(this.state.newPayment);
+    if(isCurrency === true){
+      updateMemberList[index].payments.push(Number(this.state.newPayment));
+      this.props.liftMemberList(updateMemberList);
+      this.setState({
+        dialogOpen: false,
+        newPayment: 0,
+        value: 0
+      })
+    }else{
+      this.setState({
+        errorText: "Please enter a valid dollar amount"
+      })
+    }
   };
   render() {
     const actions = [
@@ -86,6 +100,7 @@ class AddExpense extends Component {
             <TextField
                floatingLabelText="Amount ($)"
                type="number"
+               errorText={this.state.errorText}
                onChange={(e) => this.paymentChange(e)}
                value={this.state.newPayment}
              />

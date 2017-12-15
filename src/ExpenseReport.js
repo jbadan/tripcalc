@@ -56,7 +56,7 @@ class ExpenseReport extends Component {
           copyArray.splice(j, 1);
         }else if(copyArray[j].difference < 0 && copyArray[k].difference > 0){
               copyArray[j].difference += copyArray[k].difference;
-              output.push(copyArray[k].name + " pays " + copyArray[j].name + " $"+ +(copyArray[k].difference).toFixed(2));
+              output.push(copyArray[k].name + " pays " + copyArray[j].name + " $"+ +(copyArray[k].difference).toFixed(2)+".");
               copyArray[k].difference = 0;
           }
         }
@@ -79,7 +79,7 @@ class ExpenseReport extends Component {
       <div>
         <RaisedButton label="Calculate" fullWidth={true} onClick={this.calculate} />
         <Dialog
-          title="Who should pay?"
+          title="The Breakdown"
           actions={actions}
           modal={false}
           open={this.state.open}
