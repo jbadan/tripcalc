@@ -59,7 +59,7 @@ class AddMember extends Component {
       />,
     ];
     return (
-      <div>
+      <div className="inline">
         <RaisedButton
           label="Add New Member"
           primary={true}

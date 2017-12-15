@@ -74,7 +74,7 @@ class AddExpense extends Component {
       />,
     ];
     return (
-      <div>
+      <div className="inline">
         <RaisedButton
           label="Add New Expense"
           secondary={true}

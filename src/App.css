@@ -6,3 +6,13 @@
   margin-left: 40px;
   color: grey;
 }
+
+.link{
+  text-decoration: none;
+  color: black;
+}
+
+.inline{
+  display: inline;
+  padding: 2px;
+}
