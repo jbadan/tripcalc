@@ -22,6 +22,7 @@ class MemberList extends Component {
             <div>
               <ListItem
                   key={index}
+                  className="listItems"
                   value={person}
                   primaryText={person.name}
                   primaryTogglesNestedList={true}

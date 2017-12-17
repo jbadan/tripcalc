@@ -3,21 +3,21 @@ import { shallow, mount } from 'enzyme';
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { render } from 'react-dom';
-import MemberList from '../AddMember';
+import ExpenseReport from '../ExpenseReport';
 
 Enzyme.configure({ adapter: new Adapter() })
 jest.mock('react-dom');
 
-describe("MemberList", () => {
+describe("ExpenseReport", () => {
   let props;
-  let mountedMemberList;
-  const memberList = () => {
-    if (!mountedMemberList) {
-      mountedMemberList = shallow(
-        <MemberList {...props} />
+  let mountedExpenseReport;
+  const expenseReport = () => {
+    if (!mountedExpenseReport) {
+      mountedExpenseReport = shallow(
+        <ExpenseReport {...props} />
       );
     }
-    return mountedMemberList;
+    return mountedExpenseReport;
   }
 
   beforeEach(() => {
@@ -28,19 +28,19 @@ describe("MemberList", () => {
         {name: 'David', payments: [10.00, 20.00, 38.41, 45.00]}
       ],
     };
-    mountedMemberList = undefined;
+    mountedExpenseReport = undefined;
   });
 
   it("always renders a div", () => {
-    const divs = memberList().find("div");
+    const divs = expenseReport().find("div");
     expect(divs.length).toBeGreaterThan(0);
   });
 
   describe("the rendered div", () => {
     it("contains everything else that gets rendered", () => {
-      const divs = memberList().find("div");
+      const divs = expenseReport().find("div");
       const wrappingDiv = divs.first();
-      expect(wrappingDiv.children()).toEqual(memberList().children());
+      expect(wrappingDiv.children()).toEqual(expenseReport().children());
     });
   });
 
