@@ -15,32 +15,34 @@ class MemberList extends Component {
   }
   render() {
     return (
-      <List>
-      {this.props.memberList.map((person, index) => {
-        return(
-          <div>
-            <ListItem
-                key={index}
-                value={person}
-                primaryText={person.name}
-                primaryTogglesNestedList={true}
-                nestedItems=
-                  {person.payments.map((payment, index) => {
-                    return(
-                      <ListItem
-                        key={index}
-                        primaryText={"$"+payment}
-                      />
-                    )
-                })}
-            />
-            <div className="total">
-            Total Expenditure: ${+((person.payments.reduce(this.add, 0)).toFixed(2))}
+      <div>
+        <List>
+        {this.props.memberList.map((person, index) => {
+          return(
+            <div>
+              <ListItem
+                  key={index}
+                  value={person}
+                  primaryText={person.name}
+                  primaryTogglesNestedList={true}
+                  nestedItems=
+                    {person.payments.map((payment, index) => {
+                      return(
+                        <ListItem
+                          key={index}
+                          primaryText={"$"+payment}
+                        />
+                      )
+                  })}
+              />
+              <div className="total">
+              Total Expenditure: ${+((person.payments.reduce(this.add, 0)).toFixed(2))}
+              </div>
             </div>
-          </div>
-        )
-      })}
-      </List>
+          )
+        })}
+        </List>
+      </div>
     );
   }
 }

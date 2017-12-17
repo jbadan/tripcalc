@@ -60,19 +60,6 @@ class AddExpense extends Component {
     }
   };
   render() {
-    const actions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onClick={this.handleClose}
-      />,
-      <FlatButton
-        label="Submit"
-        primary={true}
-        keyboardFocused={true}
-        onClick={this.addPayment}
-      />,
-    ];
     return (
       <div className="inline">
         <RaisedButton
@@ -82,7 +69,19 @@ class AddExpense extends Component {
         />
         <Dialog
             title="Add Expense"
-            actions={actions}
+            actions={[
+              <FlatButton
+                label="Cancel"
+                primary={true}
+                onClick={this.handleClose}
+              />,
+              <FlatButton
+                label="Submit"
+                primary={true}
+                keyboardFocused={true}
+                onClick={this.addPayment}
+              />,
+            ]}
             modal={false}
             open={this.state.dialogOpen}
             onRequestClose={this.handleClose}
@@ -94,7 +93,7 @@ class AddExpense extends Component {
           >
             {this.props.memberList.map((person, index) => {
               return(
-                <MenuItem value={index} primaryText={person.name} />
+                <MenuItem value={index} key={index} primaryText={person.name} />
               )})}
           </SelectField>
             <TextField

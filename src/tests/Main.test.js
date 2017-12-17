@@ -3,11 +3,11 @@ import { shallow, mount, render } from 'enzyme';
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import Main from "./Main";
-import MemberList from './MemberList';
-import AddMember from './AddMember';
-import AddExpense from './AddExpense';
-import ExpenseReport from './ExpenseReport';
+import Main from "../Main";
+import MemberList from '../MemberList';
+import AddMember from '../AddMember';
+import AddExpense from '../AddExpense';
+import ExpenseReport from '../ExpenseReport';
 
 
 Enzyme.configure({ adapter: new Adapter() })
