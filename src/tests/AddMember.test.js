@@ -4,6 +4,7 @@ import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { render } from 'react-dom';
 import AddMember from '../AddMember';
+import { RaisedButton } from '../AddMember';
 
 Enzyme.configure({ adapter: new Adapter() })
 jest.mock('react-dom');
@@ -76,5 +77,6 @@ describe('nameChange() ', () => {
     expect(addMember.state().newName).toEqual('Jenna');
   });
 });
+
 
 });

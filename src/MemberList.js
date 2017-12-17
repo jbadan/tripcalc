@@ -19,7 +19,7 @@ class MemberList extends Component {
         <List>
         {this.props.memberList.map((person, index) => {
           return(
-            <div>
+            <div key={index}>
               <ListItem
                   key={index}
                   className="listItems"
